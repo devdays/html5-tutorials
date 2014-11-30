@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Row Grouping</title>
+
+    <!-- Much of what you need is available on ASP.NET CDN -->
+    <!--
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables.css"
+        rel="stylesheet" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js " type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.min.js"
+        type="text/javascript"></script>
+    -->
+
+    <link href="Content/DataTables-1.9.1/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="Content/DataTables-1.9.1/media/css/demo_page.css" rel="stylesheet" />
+    <link href="Content/DataTables-1.9.1/media/css/demo_table.css" rel="stylesheet" />
+    <script type="text/javascript" src="Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="Scripts/DataTables-1.9.1/media/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        var oTable;
+        oTable = $(document).ready(function () {
+            $('#myDataTable').dataTable({
+                
+                "bPaginate": false,
+                "bLengthChange": false,
+                "bFilter": true,
+                "bSort": true,
+                "bInfo": false,
+                "bAutoWidth": true,
+
+                /* In the example below the 'group' is the Event Group, which is based on
+                the information in the first column (set to hidden). */
+
+                "fnDrawCallback": function (oSettings) {
+                    if (oSettings.aiDisplay.length == 0) {
+                        return;
+                    }
+                    var nTrs = $('#myDataTable tbody tr');
+                    var iColspan = nTrs[0].getElementsByTagName('td').length;
+                    var sLastGroup = "";
+                    for (var i = 0 ; i < nTrs.length ; i++) {
+                        var iDisplayIndex = oSettings._iDisplayStart + i;
+                        var sGroup = oSettings.aoData[oSettings.aiDisplay[iDisplayIndex]]._aData[0];
+                        if (sGroup != sLastGroup) {
+                            var nGroup = document.createElement('tr');
+                            var nCell = document.createElement('td');
+                            nCell.colSpan = iColspan; nCell.className = "group";
+                            nCell.innerHTML = sGroup; nGroup.appendChild(nCell);
+                            nTrs[i].parentNode.insertBefore(nGroup, nTrs[i]);
+                            sLastGroup = sGroup;
+                        }
+                    }
+                },
+                "aoColumnDefs": [{
+                    "bVisible": false,
+                    "aTargets": [0]
+                }],
+                "aaSortingFixed": [[0, 'asc']],
+                "aaSorting": [[1, 'asc']],
+                "sDom": 'lfr<"giveHeight"t>ip'
+            });
+        });
+
+    </script>
+</head>
+<body id="dt_example">
+    <div id="container">
+        <table id="myDataTable">
+            <thead>
+                <tr>
+                    <th>Event Group</th>
+                    <th>Event Name</th>
+                    <th>Event Location</th>
+                    <th>Event Date</th>
+                    <th>Registration Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>Denver, CO</td>
+                    <td>Feb 3</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>Chicago, IL</td>
+                    <td>Feb 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                 <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>New York, NY</td>
+                    <td>Feb 22</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                 <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>London</td>
+                    <td>Feb 12</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>Cloud</td>
+                    <td>Cloud Computing on Azure</td>
+                    <td>Chicago, IL</td>
+                    <td>May 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                 <tr>
+                    <td>Cloud</td>
+                    <td>Cloud Computing on Azure</td>
+                    <td>Chicago, IL</td>
+                    <td>April 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 Introduction</td>
+                    <td>San Francisco, CA</td>
+                    <td>Mar 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

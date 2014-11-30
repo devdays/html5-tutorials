@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>DataTables selection example</title>
+
+    <!-- Much of what you need is available on ASP.NET CDN -->
+    <!--
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/css/jquery.dataTables.css"
+        rel="stylesheet" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js " type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.1/jquery.dataTables.min.js"
+        type="text/javascript"></script>
+    -->
+
+    <link href="Content/DataTables-1.9.1/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="Content/DataTables-1.9.1/media/css/demo_page.css" rel="stylesheet" />
+    <link href="Content/DataTables-1.9.1/media/css/demo_table.css" rel="stylesheet" />
+    <script type="text/javascript" src="Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="Scripts/DataTables-1.9.1/media/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8">
+        var oTable;
+
+        $(document).ready(function () {
+            /* Add a click handler to the rows - this could be used as a callback */
+            $("#myDataTable tbody tr").click(function (e) {
+                if ($(this).hasClass('row_selected')) {
+                    $(this).removeClass('row_selected');
+                }
+                else {
+                    oTable.$('tr.row_selected').removeClass('row_selected');
+                    $(this).addClass('row_selected');
+                }
+            });
+
+            /* Init the table */
+            oTable = $('#myDataTable').dataTable();
+        });
+
+
+        /* Get the rows which are currently selected */
+        function fnGetSelected(oTableLocal) {
+            return oTableLocal.$('tr.row_selected');
+        }
+    </script>
+</head>
+<body id="dt_example">
+    <div id="container">
+        <table id="myDataTable" class="display">
+            <thead>
+                <tr>
+                    <th>Event Group</th>
+                    <th>Event Name</th>
+                    <th>Event Location</th>
+                    <th>Event Date</th>
+                    <th>Registration Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>Denver, CO</td>
+                    <td>Feb 3</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>Chicago, IL</td>
+                    <td>Feb 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 All Up</td>
+                    <td>New York, Ny</td>
+                    <td>Feb 22</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 with jQuery</td>
+                    <td>London</td>
+                    <td>Feb 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>Cloud</td>
+                    <td>Cloud Computing on Azure</td>
+                    <td>Chicago, IL</td>
+                    <td>May 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>Cloud</td>
+                    <td>Cloud Computing on Azure</td>
+                    <td>Chicago, IL</td>
+                    <td>April 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+                <tr>
+                    <td>HTML5</td>
+                    <td>HTML5 Introduction</td>
+                    <td>San Francisco, IL</td>
+                    <td>Mar 9</td>
+                    <td>http://nolinkyet</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

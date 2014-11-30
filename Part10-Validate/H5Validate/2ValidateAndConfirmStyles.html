@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>h5Validate</title>
+    <style type="text/css">
+        .validationError
+        {
+            border: solid 2px red;
+        }
+
+        .validationValid
+        {
+            border: solid 2px green;
+        }
+    </style>
+</head>
+<body>
+    <form id="customerForm">
+    <label>First Name:
+        <input id="firstName" required />
+    </label>
+    <label>Social Security Number:
+        <input id="ssn" required pattern="^\d{3}-\d{2}-\d{4}$" title="Expected pattern is ###-##-####" />
+    </label>
+    <input type="submit" />
+    </form>
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.h5validate.js"></script>
+    <script type="text/javascript">
+        // Enable h5Validate plugin
+        $("#customerForm").h5Validate({
+            errorClass: "validationError",
+            validClass: "validationValid"
+        });
+        // Prevent form submission when errors
+        $("#customerForm").submit(function (evt) {
+            if ($("#customerForm").h5Validate("allValid") === false) {
+                evt.preventDefault();
+            }
+        });
+
+    </script>
+</body>
+</html>

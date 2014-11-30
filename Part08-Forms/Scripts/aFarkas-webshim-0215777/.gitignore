@@ -1,0 +1,10 @@
+*.swp
+*.un~
+*.tmp_*~
+todo.txt
+tests/performance.html
+dev-playground/*
+
+/tests/form-implementation.html
+/build/yuicompressor.jar
+/tests/tmp_tests.html

@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>Loads Modernizr and uses YepNope to identify geolocation</title>
+
+    <!-- !CSS -->
+    <link href="css/html5reset.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+ 
+    <!-- !Modernizr - Use Modernizr's YepNope to load the other scripts -->
+    <script src="Scripts/modernizr-2.5.3.min.js" type="text/javascript"></script>
+    <script>
+        Modernizr.load({
+ 
+        });
+        yepnope({
+            test: Modernizr.geolocation,
+            yep: alert("supports geolocation"),
+            nope: alert("no geolocation")
+        });
+
+    </script>
+</head>
+ 
+<body>
+    <div id="container">
+        <div id="loaded">Loaded</div>
+    </div>
+</body>
+ 
+</html>

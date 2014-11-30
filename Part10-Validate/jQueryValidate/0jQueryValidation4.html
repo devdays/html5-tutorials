@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html">
+<html>
+<head>
+    <title>jQuery Validation - Demo</title>
+<!--
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+-->
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+        SubmittingForm = function () {
+            alert("The form has been validated.");
+        }
+
+        $(document).ready(function () {
+            $("#myform1").validate({
+                submitHandler: function (form) {
+                    SubmittingForm();
+                },
+                rules: {
+                    name: "required",		// simple rule, converted to {required:true}
+                    email: {				// compound rule
+                        required: true,
+                        email: true
+                    },
+                    url: {
+                        url: true
+                    },
+                    comment: {
+                        required: true
+                    }
+                },
+                messages: {
+                    comment: "Please enter a comment."
+                }
+            });
+        });
+
+        jQuery.validator.addMethod(
+			"selectNone",
+			function (value, element) {
+			    if (element.value == "none") {
+			        return false;
+			    }
+			    else return true;
+			},
+			"Please select an option."
+		);
+    </script>
+    <style type="text/css">
+        .form-div
+        {
+            border: 1px #ccc solid;
+            padding: 10px;
+            width: 650px;
+        }
+
+            .form-div .submit
+            {
+                margin-left: 155px;
+                margin-top: 10px;
+            }
+
+            .form-div .label
+            {
+                display: block;
+                float: left;
+                width: 150px;
+                text-align: right;
+                margin-right: 5px;
+            }
+
+            .form-div .form-row
+            {
+                padding: 5px 0;
+                clear: both;
+                width: 700px;
+            }
+
+            .form-div label.error
+            {
+                width: 250px;
+                display: block;
+                float: left;
+                color: red;
+                padding-left: 10px;
+            }
+
+            .form-div input[type=text], select, textarea
+            {
+                width: 250px;
+                float: left;
+            }
+
+            .form-div textarea
+            {
+                height: 50px;
+            }
+    </style>
+</head>
+<body>
+    <div class="form-div">
+        <form id="myform1" method="post" action="">
+        <div class="form-row">
+            <span class="label">Name *</span>
+            <input type="text" name="name">
+        </div>
+        <div class="form-row">
+            <span class="label">E-Mail *</span>
+            <input type="text" name="email">
+        </div>
+        <div class="form-row">
+            <span class="label">URL&nbsp;&nbsp;&nbsp;</span>
+            <input type="text" name="url">
+        </div>
+        <div class="form-row">
+            <span class="label">Your comment *</span>
+            <textarea name="comment"></textarea>
+        </div>
+        <div class="form-row">
+            <input class="submit" type="submit" value="Submit">
+        </div>
+        </form>
+    </div>
+</body>
+</html>

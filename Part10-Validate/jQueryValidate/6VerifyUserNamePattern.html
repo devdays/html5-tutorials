@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Verify User Name</title>
+    <!-- <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validate.min.js"></script> -->
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $.validator.addMethod("username", function (value, element) {
+                return this.optional(element) || /^[a-z0-9\_]+$/i.test(value);
+            }, "Username must contain only letters, numbers, or underscore.");
+
+            $("form").validate({
+                rules: {
+                    username_input: {
+                        username: true,
+                        required: true,
+                        minLength: 2
+                    }
+                }
+            });
+
+        });
+
+    </script>
+    <style type="text/css">
+           *
+        {
+            font-family: Verdana;
+            font-size: 96%;
+        }
+
+        label
+        {
+            width: 10em;
+            float: left;
+        }
+
+            label.error
+            {
+                float: none;
+                color: red;
+                padding-left: .5em;
+                vertical-align: top;
+            }
+        li
+        {
+            list-style-type: none;
+        }
+        </style>
+</head>
+<body>
+    <form id="myform">
+    <fieldset>
+        <legend>A form</legend>
+        <ul>
+            <li>
+                <label for="username_input">User Name</label>
+                <input id="username_input" name="username_input" size="25" minlength="2" />
+            </li>
+        </ul>
+         <p>
+            <input class="submit" type="submit" value="Submit" />
+        </p>
+    </fieldset>
+    </form>
+</body>
+</html>

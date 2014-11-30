@@ -1,0 +1,39 @@
+﻿/* CSS layout */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+}
+
+nav 
+{ 
+    background: coral;
+}
+    
+nav ul { 
+    margin: 0;  
+}
+
+nav ul li { 
+    display: inline; 
+    margin: 0 20px; 
+}
+
+
+article {
+}
+
+aside {
+	background: #009999;
+}
+
+section {
+	background: #FFACAA;
+}
+
+footer {
+	clear: both;
+	background: #BFF08E;
+}

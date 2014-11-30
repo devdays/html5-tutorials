@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Real Dialog</title>
+    <link type="text/css" href="Content/themes/base/jquery.ui.all.css" rel="Stylesheet" />
+    <style>
+        body
+        {
+            font-size: 62.5%;
+        }
+
+        label, input
+        {
+            display: block;
+        }
+
+            input.text
+            {
+                margin-bottom: 12px;
+                width: 95%;
+                padding: .4em;
+            }
+
+        fieldset
+        {
+            padding: 0;
+            border: 0;
+            margin-top: 25px;
+        }
+    </style>
+    <script type="text/javascript" src="Scripts/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-ui-1.8.20.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.mysection').dialog({
+                    autoOpen: false,
+                    modal: true,
+                    minWidth: 400,
+                    position: "top",
+                    title: "Sign up",
+                    buttons: {
+                        "Ok": function () {
+                            $('.reviewinfo').html(function () {
+                                return '<p>Contact Name: ' + $('#Contact').val() + '</p>' +
+                                    '<p>Zip Code: ' + $('#zip').val() + '</p>';
+                            });
+                            // Insert jQuery AJAX code here
+                            $(this).dialog("close");
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+                        }
+                    },
+                    overlay: {
+                        backgroundColor: '#000',
+                        opacity: 0.5
+                    }
+                });
+
+                $(window).resize(function () {
+                    $('.mysection').dialog('option', 'position', ['center','top']);
+                });
+            });
+
+            function clicksignup() {
+                $(".mysection").dialog("open");
+            };
+
+
+    </script>
+</head>
+<body>
+
+    <button id="signup" onclick="clicksignup()">Sign up here</button>
+
+    <form>
+    <section id="mysection" class="mysection">
+        <fieldset>
+            <legend>Contact</legend>
+            <ul>
+                <li>
+                    <label for="Contact">Name: </label>
+                    <input type="text" name="Contact" id="Contact" required /></li>
+                <li>
+                    <label for="Email">Email: </label>
+                    <input type="email" name="Email" id="Email" placeholder="name@example.com" />
+                </li>
+                <li>
+                    <label for="Phone">Phone: </label>
+                    <input type="tel" name="Phone" id="Phone" /></li>
+            </ul>
+        </fieldset>
+                <fieldset>
+            <legend>Address</legend>
+            <ul>
+                <li>
+                    <label for="Address">Street Address: </label>
+                    <textarea id="Address" rows="6"></textarea></li>
+                <li>
+                    <label for="zip">ZIP Code: </label>
+                    <input type="text" id="zip" placeholder="00000" title="zip" pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$"
+                        required /></li>
+            </ul>
+        </fieldset>
+    </section>
+    </form>
+    <div class="reviewinfo">Be sure to enter contact name</div>
+</body>
+</html>

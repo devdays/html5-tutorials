@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Validation</title>
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validate.min.js"></script>
+    <!-- <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>  -->
+
+    <!-- provide alternative in case you cannot connect with CDN here -->
+
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $("#myForm").validate();
+          });
+      </script>
+      <style type="text/css">
+        *
+        {
+            font-family: Verdana;
+            font-size: 96%;
+        }
+        label { width: 10em; float: left; }
+        label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+        .error {    
+            font: normal 10px arial;    
+            padding: 3px;    
+            margin: 3px;    
+            background-color: #ffc;    
+            border: 1px solid #c00;
+        }
+
+    </style>
+</head>
+<body>
+ <form id="myForm">
+ <fieldset>
+   <legend>Simple Example</legend>
+   <div>
+     <label for="nameInput">Name</label>
+     <input id="nameInput" name="name" size="25" class="required" minlength="2" />
+   </div>
+   <div>
+     <label for="emailInput">E-Mail</label>
+     <input id="emailInput" name="email" size="25"  class="required email" />
+   </div>
+   <div>
+     <label for="urlInput">URL</label>
+     <input id="urlInput" name="url" size="25"  class="url" value="" />
+   </div>
+   <div>
+     <label for="comment">Your comment</label>
+     <textarea id="comment" name="comment" cols="22"  class="required"></textarea>
+   </div>
+   <div>
+     <input class="submit" type="submit" value="Submit"/>
+   </div>
+ </fieldset>
+ </form>
+</body>
+</html>
+

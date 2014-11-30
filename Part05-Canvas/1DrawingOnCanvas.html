@@ -1,0 +1,26 @@
+﻿<!DOCTYPE HTML>
+<html>
+  <head>
+      <title>Canvas Demo</title>
+      <script src="Scripts/jquery-1.7.2.js"></script>
+      <script src="Scripts/modrnizr-2.5.3.js"></script>
+    <script>
+        window.onload = function () {
+
+            // Create the canvas.
+            var canvas = document.getElementById("myCanvas");
+            var context = canvas.getContext("2d");
+
+            // Move to and draw a line
+            context.moveTo(100, 150);
+            context.lineTo(450, 50);
+            context.lineWidth = 15;
+            context.stroke(); 
+        };
+
+    </script>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+  </body>
+</html>

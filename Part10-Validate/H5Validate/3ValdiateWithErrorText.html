@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Error text with h5Validate</title>
+    <style>
+        .red
+        {
+            background-color: #f00;
+            color: silver;
+        }
+    </style>
+</head>
+<body>
+    <form id="myform" action="#">
+        <label for="FirstName">Your Name:*</label>
+		<input id="FirstName" type="text" data-h5-errorid="invalid-FirstName" title="Required: Please provide your first name." required />
+		<div id="invalid-FirstName" class="ui-state-error message" style="display:none;">Not used. Error message will show the title.</div>
+    </form>
+    <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.h5validate.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myform').h5Validate({
+                errorClass: 'red'
+            });
+        });
+     </script>
+</body>
+</html>

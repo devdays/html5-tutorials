@@ -1,0 +1,57 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Rendering rows using JSRender</title>
+    <script src="Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+ 	<script src="Scripts/jsrender.js" type="text/javascript"></script>
+
+<!-- event template builds the rows of the table -->
+<script id="eventTemplate" type="text/x-jsrender">
+    <tr>
+        <td>{{:#index+1}}</td>
+        <td>{{:eventName}}</td>
+        <td>{{:location}}</td>
+        <td>{{:eventDate}}</td>
+        <td> 
+        {{if full }}
+            <a href="{{:registrationID}}">wait list</a>
+        {{else}}    
+            <a href="{{:registrationID}}">register</a>
+        {{/if}}
+        </td>
+    </tr>
+
+</script>
+
+ 
+</head>
+ 
+<body>
+<!-- Table for the data -->
+<table><tbody class="header">
+    <tr><th></th><th>Event</th><th>Location</th><th>Date</th><th>Register</th>
+    </tr></tbody>
+    <tbody id="eventList"></tbody>
+</table>
+
+<!-- Event data, and inserting the table into the tbody -->
+<script type="text/javascript">
+
+    var events = [
+        { eventName: "HTML5 Days", location: "Denver, CO", eventDate: "8/12/2012", registrationID: "2345" },
+        { eventName: "Windows 8 Days", location: "Chicago, IL", eventDate: "6/1/2012", registrationID: "2346" },
+        { eventName: "Startup Days", location: "Silicon Valley, CA", eventDate: "6/12/2012", full: "yes", registrationID: "2347" },
+        { eventName: "Startup Days", location: "New York, NY", eventDate: "7/12/2012", registrationID: "2348" }
+    ];
+
+    // Render the template with the event data and insert
+    // the rendered HTML under the "eventList" element
+    $("#eventList").html(
+        $("#eventTemplate").render(events)
+    );
+
+</script>
+</body>
+ 
+</html>

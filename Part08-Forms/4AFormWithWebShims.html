@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Form with Webshims</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css">
+
+    <!-- dependencies for webshim: jQuery + Modernizr with yepnope -->
+    <!-- get http://jquery.com and http://modernizr.com -->
+    <!-- Use ASP.NET CDN'd jQuery. fall back to local if necessary -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js " type="text/javascript"></script>
+    <script>        !window.jQuery && document.write('<script src="Scripts/jquery-1.7.2.min.js"><\/script>')</script>
+    <script src="Scripts/modernizr-2.5.3.min.js" type="text/javascript"></script>
+	
+    <!-- add in polyfiller -->
+    <script src="Scripts/js-webshim/minified/polyfiller.js"></script>
+	
+    <script>
+        //implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
+        $.webshims.polyfill();
+
+        $(function () {
+            //use all implemented API-features on DOM-ready
+        });
+    </script>		
+</head>
+<body>
+    <form id="myform">
+    <fieldset class="no-legend">
+        <legend>Contact</legend>
+        <ul>
+            <li class="name" >
+                <label for="orderName">Your Name</label>
+                <input type="text" class="field" id="orderName" required autofocus placeholder="ex. Hugo Reyes" />                
+            </li>
+            <li class="email">
+                <label for="orderEmail">Your Email Address</label>
+                <input type="email"  class="field" id="orderEmail" required placeholder="ex. name@domain.com" />
+            </li>
+            <li class="website">
+                <label for="orderWebsite">Your Web Site</label>
+                <input type="url"  class="field" id="orderWebsite" placeholder="ex. http://www.domain.com" />
+            </li>
+            <li class="telephone">
+                <label for="orderTelephone">Your Phone Number</label>
+                <input type="tel" id="orderTelephone"  class="field"
+                    pattern="\(\d\d\d\) \d\d\d\-\d\d\d\d" title="(xxx) xxx-xxxx" />                
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Order Information</legend>
+        <ul>
+            <li class="requestedDate">
+                <label for="deliveryDate">Requested Delivery Date</label>
+                <input type="date" id="deliveryDate"  class="field" required />                
+            </li>
+            <li class="shipping">
+                <label for="orderShipping">Shipping Address</label>
+                <textarea rows="4" cols="20" id="orderShipping"  class="field" required></textarea>
+            </li>
+            <li><label for= "State">State: </label>
+            <input type= "text" list= "pacificstates" name= "State" id= "State" placeholder= "Pick a State" /> 
+            <datalist id= "pacificstates"> 
+                <select>
+                    <option value= "California" /> 
+                    <option value= "Oregon" /> 
+                    <option value= "Washington" /> 
+                </select>
+            </datalist> 
+            <li><label for= "zip">ZIP Code: </label><input type= "text" id= "zip" title="" pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$" /></li> 
+            <li><label for= "time">Delivery Time:</label> <input type= "time" /></li> 
+        </ul>
+    </fieldset>
+    <input type="submit" value="Send" class="submit"/><span id="response"></span>
+
+    </form>
+</body>
+</html>

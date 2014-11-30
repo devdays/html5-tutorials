@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/modernizr-2.5.3.min.js" type="text/javascript"></script>
+    <!-- add in polyfiller. Get it from http://afarkas.github.com/webshim/demos/index.html -->
+    <script src="../Scripts/js-webshim/minified/polyfiller.js"></script>
+    <script src="../Scripts/js-webshim/minified/extras/custom-validity.js"></script>
+    <script>
+        //implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
+        $.webshims.polyfill();
+
+        $(function () {
+            //use all implemented API-features on DOM-ready
+        });
+    </script>
+</head>
+<body>
+    <form>
+    <div class="form-element">
+        <label for="special1">How did you hear about us?
+            
+        </label>
+        <select name="special1" id="special1">
+            <option value="magazine">Magazine</option>
+            <option value="friend">Friend</option>
+            <option value="other">Other (please explain)</option>
+        </select>
+        <br />
+        <label for="special2">
+            Other: 
+        </label>
+        <input data-dependent-validation='{"from": "special1", "prop": "required", "from-prop": "value:other"}'
+            name="special2" type="text" id="special2" />
+    </div>
+    <div>
+        <input type="submit" value="Submit" /></div>
+    </form>
+</body>
+</html>

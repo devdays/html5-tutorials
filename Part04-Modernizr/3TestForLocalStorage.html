@@ -1,0 +1,37 @@
+﻿<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <title>Loads Modernizr and uses YepNope to load jQuery</title>
+
+    <!-- !CSS -->
+    <link href="css/html5reset.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+ 
+    <!-- !Modernizr - Use Modernizr's YepNope to load the other scripts -->
+    <script src="Scripts/modernizr-2.5.3.min.js"></script>
+    <script>
+        Modernizr.load({
+            load: 'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js',
+            complete: function () {
+                if (!window.jQuery) {
+                    Modernizr.load("Scripts/jquery-1.7.2.min.js");
+                }
+                $("#loaded").append("... Modernizr and jQuery loaded");
+                if (Modernizr.localstorage) {
+                    $("#LocalStorageStatus").append("And localStorage is available");
+                } else {
+                    $("#LocalStorageStatus").append("And we get to use cookies");
+                };
+            }
+        });
+
+    </script>
+ 
+</head>
+<body>
+   <div id="loaded">Loaded</div>
+   <div id="LocalStorageStatus"></div>    
+</body>
+ 
+</html>

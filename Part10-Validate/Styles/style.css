@@ -1,0 +1,11 @@
+﻿input:required:invalid, input:focus:invalid
+{
+    background-image: url(/images/invalid.png);
+    background-position: right top;
+    background-repeat: no-repeat;
+    -moz-box-shadow: none;
+}
+
+/* create styles for the input and placeholders */
+input, textarea { color: #000; }
+.placeholder { color: #aaa; }

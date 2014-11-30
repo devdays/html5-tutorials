@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Validation Example</title>
+    <!-- <script type="text/javascript" src="../Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validate.min.js"></script> -->
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+    <style type="text/css">
+        *
+        {
+            font-family: Verdana;
+            font-size: 96%;
+        }
+
+        label
+        {
+            width: 10em;
+            float: left;
+        }
+
+            label.error
+            {
+                float: none;
+                color: red;
+                padding-left: .5em;
+                vertical-align: top;
+            }
+
+        p
+        {
+            clear: both;
+        }
+
+        .submit
+        {
+            margin-left: 12em;
+        }
+        .required
+        {
+            border-color: #4cff00;
+        }
+        input.error
+        {
+            border-color: #f00;
+        }
+        textarea.error
+        {
+            border-color: #f00;
+        }
+        li
+        {
+            list-style-type: none;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myform").validate();
+        });
+    </script>
+</head>
+<body>
+    <form class="myformClass" id="myform" method="get" action="">
+    <fieldset>
+        <legend>A form</legend>
+        <ul>
+        <li>
+            <label for="name_input">Name</label>
+            <input id="name_input" name="name" size="25" class="required" minlength="2" />
+        </li>
+        <li>
+            <label for="email_input">E-Mail</label>
+            <input id="email_input" name="email" size="25" class="required email" />
+        </li>
+        <li>
+            <label for="url_input">URL</label>
+            <input id="url_input" name="url" size="25" class="url" value="" />
+        </li>
+        <li>
+            <label for="comment_input">Your comment</label>
+            <textarea id="comment_input" name="comment" cols="22" rows="3" class="required"></textarea>
+        </li>
+        </ul>
+        <p>
+            <input class="submit" type="submit" value="Submit" />
+        </p>
+    </fieldset>
+    </form>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Custom Validations in WebShims</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css">
+
+    <!-- dependencies for webshim: jQuery + Modernizr with yepnope -->
+    <!-- get http://jquery.com and http://modernizr.com -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../Scripts/modernizr-2.5.3.min.js" type="text/javascript"></script>
+	
+    <!-- add in polyfiller. Get it from http://afarkas.github.com/webshim/demos/index.html -->
+    <script src="../Scripts/js-webshim/minified/polyfiller.js"></script>
+	
+    <script>
+        //implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
+        $.webshims.polyfill();
+
+        $(function () {
+            //use all implemented API-features on DOM-ready
+    });
+    </script>		
+</head>
+<body>
+    <form id="myform">
+    <fieldset class="no-legend">
+        <legend>Custom Validation</legend>
+        <ul>
+        <li>
+            <label for="partNumber">Part Number</label>
+            <!-- NOTE: partNumber is not required -->
+            <input id="partNumber" pattern="[0-9][A-Z]{3}" title="A part number is a digit followed by three uppercase letters." />
+        </li>
+        <li>       
+            <label for="arrivaldate">Arrival Date</label>          
+            <input id="arrivalDate" type="date" required />
+        </li>
+        </ul>
+     </fieldset>
+    <input type="submit" value="Send" class="submit"/><span id="response"></span>
+
+    </form>
+    <script type="text/javascript">
+        var arrivalDate = document.getElementById("arrivalDate");
+        arrivalDate.addEventListener("input", function () {
+            var value = new Date(arrivalDate.value);
+            if (value < new Date()) {
+                arrivalDate.setCustomValidity("Arrival date must be after now!");
+            } else {
+                arrivalDate.setCustomValidity("");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Demo</title>
+ 
+    <!-- !CSS -->
+    <link href="css/html5reset.css" rel="stylesheet" />
+    <link type="text/css" href="Content/themes/base/jquery.ui.all.css" rel="Stylesheet" />    
+    <script type="text/javascript" src="Scripts/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-ui-1.8.20.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Set up the dataentry
+            $('#dateentry').datepicker();
+        });
+    </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#anotherdate").datepicker({
+                    showOn: 'button', buttonImageOnly: true, buttonImage: 'images/icon_cal.png'
+                });
+            });
+
+        </script>
+
+</head>
+ 
+<body>
+    <div id="container">
+        <label for="dateentry" title="Enter a date: ">Date</label>
+        <input type="text" name="dateentry" id="dateentry" /> 
+        <div>OR</div>
+        <label for="dateentry" title="Enter a date: ">Date</label>
+        <input type="text" name="anotherdate" id="anotherdate" />        
+    </div>
+</body>
+ 
+</html>

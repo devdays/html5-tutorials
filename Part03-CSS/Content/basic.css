@@ -1,0 +1,57 @@
+﻿body
+{
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    font-size: x-large;
+    font-weight: 200;
+}
+
+nav
+{
+    background: coral;
+}
+
+    nav ul
+    {
+        margin: 0;
+    }
+
+        nav ul li
+        {
+            display: inline;
+            margin: 0 20px;
+        }
+
+
+article
+{
+    min-width: 600px;
+}
+
+aside
+{
+    width: 200px;
+    float: right;
+    background: #009999;
+    /* and for our rounded corner */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+section
+{
+    margin-right: 200px;
+    background: #FFACAA;
+}
+
+footer
+{
+    clear: both;
+    background: #BFF08E;
+}
+

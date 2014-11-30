@@ -1,0 +1,7 @@
+﻿You will need to get:
+JQuery from http://jquery.com (or you can get it from NuGet within Visual Studio. Be sure to get jquery.min.js)
+JS-WebShim from http://afarkas.github.com/webshim/demos/demos/webforms.html follow the link to GitHub
+H5Validator from http://ericleads.com/h5validate/ follow the link to GitHub 
+Modernizr from http://modernizr.com (or from NuGet from within visual Studio)
+
+Be sure to adjust the scripts that are called to load each version as needed.

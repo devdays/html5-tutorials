@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>My Awesome Site</title>
+
+        <!-- These days, feature detection is preferred to UA Sniffing. Modernizr is one such library that aids in feature detection -->
+        <script src="Scripts/modernizr-2.5.3.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+		<header><h1>My Awesome Site</h1></header>
+		<article>
+            <header><h1>An Article</h1></header>
+            <p>Isn't this awesome?</p>
+        </article>
+        <canvas id="myCanvas" width="578" height="200"></canvas>
+	</body>
+    <script>
+        Modernizr.load([{
+            load: 'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js',
+            complete: function () {
+                if (!window.jQuery) {
+                    Modernizr.load('Scripts/jquery-1.7.2.min.js');
+                }
+            }
+        },
+        {
+            // Load Canvas polyfill from inside yepnope in Modernizr
+            test: Modernizr.canvas,
+            nope: 'Scripts/excanvas.js',
+            complete: function () {
+                Modernizr.load('Scripts/eventmap.js');
+            }
+        }]);
+    </script>
+</html>
+
+

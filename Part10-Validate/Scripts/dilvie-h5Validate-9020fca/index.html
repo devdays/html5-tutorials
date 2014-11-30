@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+	<head>
+		<title>h5Validate - The HTML5 Form Validation Plugin for jQuery</title>
+<!-- 	
+		<script type="text/javascript" src="http://js.getexceptional.com/exceptional.js"></script> 
+		<script type="text/javascript">
+		  Exceptional.setKey('e778cbe66170d28dc9233629cec1edba8c98113a');
+		</script>
+-->
+
+		<link href="style01.css" media="screen" rel="stylesheet" type="text/css" />
+		<link href="http://code.jquery.com/qunit/qunit-git.css" rel="stylesheet" />
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-20667798-1']);
+		  _gaq.push(['_setDomainName', 'none']);
+		  _gaq.push(['_setAllowLinker', true]);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	</head>
+	<body>
+		<header>
+		<h1>h5Validate - HTML5 Form Validation for jQuery</h1>
+
+		<a class="button" href="http://github.com/dilvie/h5Validate/archives/master">Download from Github</a>
+
+		<br /><br />
+		
+		<p>If you want to contribute, feel free to <a href="http://github.com/dilvie/h5Validate">fork the project on Github</a>.</p>
+
+		<p>Best practice realtime HTML5 form validation for jQuery. Works on all popular browsers, including old ones like IE6.</p>
+
+		<ul>
+			<li><p>Regularly tested on 13 different browsers, IE6 - IE9, FireFox, Chrome, iPhone, and Android.</p></li>
+			<li><p>Implements best practices based on 1,000 user survey, several usability studies, and the behavior of millions of users in live production environments.</p></li>
+		</ul>
+		</header>
+
+		<div class="announce">
+			<h3>Supported Platforms</h3>
+			<p><strong>Desktop:</strong> IE 9, 8, 7, 6, Chrome, Firefox, Safari, and Opera. Tested on Windows 7 and Mac.</p>
+			<p><strong>Mobile:</strong> iPhone, Android, Palm WebOS</p>
+			<h3>New in v0.8.0+</h3>
+			<ul>
+				<li>Event API</li>
+			</ul>
+		</div>
+
+		<h2>Jump Start</h2>
+
+		<p>Copy and paste this at the end of the body on any page with an HTML5 form. If html5 validation rules exist in the form, you're in business!</p>
+
+		<script src="http://gist.github.com/607687.js?file=h5Validate-loader-part.html"></script>
+
+		<h2>Features</h2>
+
+		<h3>HTML5 required attribute. e.g.</h3>		
+
+		<form id="form1" class="h5-defaults">
+		<label for="name">Your Name:*</label>
+		<input id="name" name="name" type="text" placeholder="Bob" title="Your name is required." required />
+		<p><em>Hint: Select it, then click somewhere else without typing anything.</em></p>
+		<input type="submit" value="Submit" />
+		</form>
+
+		<h4>Source:</h4>
+
+		<script src="http://gist.github.com/607690.js?file=h5-required-demo-part.html"></script>
+
+		<h3>HTMTL5 pattern attribute. e.g.</h3>
+
+		<form id="form2" class="h5-defaults">
+		<label for="birthdate">Your Birth Date:</label>
+		<input id="birthdate" name="name" type="text" placeholder="mm/dd/yyyy" title="mm/dd/yyyy" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" />
+		</form>
+		<p><em>Hint: It's expecting mm/dd/yyyy. Try typing "jQuery rocks!" instead.</em></p>
+
+		
+		<h4>Source:</h4>
+		
+		<script src="http://gist.github.com/607739.js?file=h5-pattern-demo-part.html"></script>
+
+		<h3>Pattern Library</h3>
+		
+		<p>Sometimes, you'll want to re-use the same validation pattern for several elements on a page. You could copy and paste the same pattern over and over again to a bunch of different form fields, but what happens if you discover a bug in the pattern? Fix it and repeat the whole copy and paste process?</p>
+		
+		<p>A better solution is to attach the pattern with a class selector. Use <a href="#addPatterns"><code>$.h5Validate.addPatterns()</code></a> to add your pattern, make sure the classPrefix variable is set correctly (it's <code>h5-</code> by default), and add the class to the input fields.</p>
+		
+		<form class="h5-defaults">
+			<label for="email">Email:</label>
+			<input id="email" type="text" class="h5-email" required />
+		</form>
+		
+		<h4>Source:</h4>
+		<script src="https://gist.github.com/814972.js?file=gistfile1.phtml"></script>
+		
+		<h3>Error Messages</h3>
+		
+		<p>Error divs should be hidden in the HTML with <code>display:none;</code> -- h5Validate shows them when the corresponding field is marked invalid.</p>
+
+		<form id="form4" class="h5-defaults">
+		<label for="FirstName">Your Name:*</label>
+		<input id="FirstName" type="text" data-h5-errorid="invalid-FirstName" title="Required: Please provide your first name." required />
+		<div id="invalid-FirstName" class="ui-state-error message" style="display:none;">This stuff will get replaced by the title contents.</div>
+		</form>
+
+		<h2>Options</h2>
+				
+		<p>There are a <em>ton</em> of options you can override by passing key: value pairs when you call .h5Validate(). For example, we can change the CSS class that indicates validation errors:</p>
+		
+		<form id="black">
+		<label for="name2">Your Name:*</label>
+		<input id="name2" name="name2" type="text" placeholder="Bob" title="Your name is required." required />
+		<p><em>Hint: Select it, then click somewhere else without typing anything.</em></p>
+		</form>
+
+		<h4>Source:</h4>
+		<script src="http://gist.github.com/607750.js?file=h5-setting-options-part.html"></script>		 
+		
+		<dl>
+		<dt>errorClass</dt><dd><p>Custom CSS class for validation errors.</p></dd>
+		<dt>validClass</dt><dd><p>Custom CSS class to mark a field validated.</p></dd>		
+		<dt>errorAttribute</dt><dd><p>An html attribute that stores the ID of the error message container for this element. It's set to data-h5-errorid by default. <em>Note: The data- attribute prefix is a new feature of HTML5, used to store an element's meta-data.</em> e.g.</p>
+			<code class="block">&lt;input id="name" data-h5-errorid="nameError" required &gt;</code>
+		</dd>
+		<dt>kbSelectors</dt><dd><p>A list of CSS selectors for attaching keyboard-oriented events. Default:</p>
+			<code class="block">kbSelectors: ':text, :password, select, textarea'</code>
+		</dd>
+		<dt>focusout, focusin, change, keyup</dt><dd><p>(Events) These are the "keyboard oriented" events. Better to think of them as non-mouse-specific events. Set them to "true" if you want them to trigger a field validation. Defaults:</p>
+			<code class="block">focusout: true,<br />
+				focusin: false,<br />
+				change: false,<br />
+				keyup: true</code>
+		</dd>
+		<dt>mSelectors</dt><dd><p>A list of CSS selectors for attaching "mouse oriented" events. Default:</p>
+			<code class="block">mSelectors: ':radio, :checkbox, select, option'</code>
+		</dd>
+
+		<dt>click</dt><dd><p>(Event) The only default mouse-oriented event. Since it probably makes little sense to trigger validation on other mouse events, I'll leave it to you to figure out how to enable them.</p>
+			<p><em>Note: The click event isn't just for the mouse. It will trigger for keyboard and touch screen interactions, too.</em></p>
+			<code class="block">click: true</code>
+		</dd>
+
+		<section>
+			<h2>Event API</h2>
+			<p>h5Validate supports the following events:</p>
+
+			<dl>
+				<dt><code>instance</code></dt>
+				<dd>Instance created.</dd>
+
+				<dt><code>validated</code></dt>
+				<dd>The element in question has been validated. A validity object is passed into the event handler containing:
+				<code><pre>{
+	element: HTMLObject, // A reference to the validated element
+	customError: Bool, // Custom validity failed.
+	patternMismatch: Bool, // Input does not match pattern
+	rangeOverflow: Bool, // Input is greater than max attribute value
+	rangeUnderflow: Bool, // Input is less than min attribute value
+	stepMismatch: Bool, // Input does not conform to the step attribute setting
+	tooLong: Bool, // Input is too long
+	typeMismatch: Bool, // Wrong input type
+	valid: Bool, // Input is valid
+	valueMissing: Bool // Required value is missing
+}</pre></code>
+				</dd>
+
+				<dt><code>formValidated</code></dt>
+				<dd>The form in question has been validated. An object is passed with an object containing a bool, <code>valid</code>, and an array of validity objects corresponding to the validated elements.</dd>
+			</dl>
+		</section>
+
+
+		<div class="method">
+		<h2>Methods</h2>
+
+		<dl>
+			<a name="addPatterns" />
+			<dt>$.h5Validate.addPatterns(patterns)</dt>
+			<dd><p>Take a map of pattern names and HTML5-compatible regular
+				expressions, and add them to the patternLibrary. Patterns in
+				the library are automatically assigned to HTML element pattern
+				attributes for validation.</p>
+
+				<dl><dt>{object} patterns</dt><dd><p>A map of pattern names and
+				HTML5 compatible regular expressions.</p></dd></dl>
+
+		<h3>Demo</h3>		
+		<form id="form3" class="h5-defaults">
+		<label for="phone">Your Phone Number:</label>
+		<input class="h5-phone" id="phone" name="phone" type="text" placeholder="555-555-5555" title="555-555-5555" />
+		</form>
+				
+		<h3>Source:</h3>
+		
+		<script src="http://gist.github.com/612886.js?file=h5-class-selectors-part.html"></script>		
+
+		<p>The <code>class="h5-phone"</code> bit is the part doing the magic. The <code>h5-</code> prefix tells you that this class is a handle that we can use to attach validation rules to. Internally, we just tack this prefix to the front of the pattern names to get the right selectors.</p>
+
+		<p>In your JavaScript, specify the pattern name <em>without</em> the class prefix. Keeping the prefix off lets us easily share and re-use pattern libraries between projects.</p>
+
+		<script src="http://gist.github.com/612886.js?file=h5-custom-pattern-part.js"></script>
+
+			</dd>
+			<br/>
+			<dt>$.h5Validate.validValues(selector, values)<dt>
+			<dd><p>Take a valid jQuery selector, and a list of valid values to
+			 validate against.</p>
+			<p>If the user input isn't in the list, validation fails.</p>
+
+			<dl>
+				<dt>{String} selector</dt><dd><p>Any valid jQuery selector.</p></dd>
+
+				<dt>{Array} values</dt><dd><p>A list of valid values to validate selected 
+					fields against.</p></dd>
+			</dl>
+		</dl>
+		</div>
+
+		<section>
+		<h2>New Input Types (Use with caution.)</h2>
+
+		<div class="announce">
+			<p><strong>Warning:</strong> Each browser has its own way of treating these new input types. iOS might swap out the on-screen keyboard (cool!), while Chrome renders custom UI controls that don't always make sense (like up and down arrows for <code>datetime</code> inputs.)</p>
+			
+			<p>What's worse, some of the styles that get applied to these elements are browser-specific, and ignore CSS cascading -- so before you can add your own look and feel, you first have to turn off each native browser's look and feel. For example, h5Validate works just fine on that search field down there, but in Chrome, it ignores our CSS because you first have to turn off <code>-webkit-appearance: searchfield;</code> before you style it. (Hint: You may want to search for a good HTML5 CSS reset). I've left it as is to demonstrate how irritating all of this can be. Good luck, and don't say I didn't warn you.</p>
+		</div>
+
+		<p>h5Validate does not currently validate new element types automatically. The <code>pattern</code> and <code>required</code> attributes work fine, but h5Validate <strong>will not</strong> automatically apply email validation to fields with <code>type="email"</code>, etc.. (Yet.)</p>
+
+		<p>The plan is to create a thorough testsuite to make sure these validations comply with the html5 standard prior to implementation. So far, it looks like some of the browser implementations are inconsistent. We'll be sharing test cases and filing bug reports in an effort to get all of these validations behaving the same way. Any help with the effort is appreciated. In particular, test cases that show how various implementations differ from the spec would be great. Eventually, we'll defer to the native browser implementation if it's available, with a fall-back to h5Validate's built-in validation rules.</p>
+
+		<p>For you bleeding-edge junkies, here are the new input types:</p>
+		</div>
+
+		<!-- https://developer.mozilla.org/en/HTML/Forms_in_HTML -->
+		<form id="newTypes">
+			<div><input required title="normal" /></div>
+			<div><input type="tel" required /></div>
+			<div><input type="search" required /></div>
+			<div><input type="email" required /></div>
+			<div><input type="url" required /></div>
+			<div><input type="datetime" required /></div>
+			<div><input type="date" required /></div>
+			<div><input type="month" required /></div>
+			<div><input type="week" required /></div>
+			<div><input type="time" required /></div>
+			<div><input type="datetime-local" required /></div>
+			<div><input type="number" required /></div>
+			<div><input type="range" required /></div>
+			<div><input type="color" required /></div>
+		</form>
+		</section>
+
+		<section>
+			<h2>Radio button tests</h2>
+			<form id="radio">
+			<input type="radio" name="radio-test" required>1</input>
+			<input type="radio" name="radio-test" class="checkme" required>2</input>
+			<input type="radio" name="radio-test" required>3</input>
+			</form>
+		</section>
+
+		<a href="#run-tests" id="run-tests">Run Tests</a>
+		<h1 id="qunit-header">QUnit Test Suite</h1>  
+			<h2 id="qunit-banner"></h2>  
+			<div id="qunit-testrunner-toolbar"></div>  
+			<h2 id="qunit-userAgent"></h2>  
+			<ol id="qunit-tests"></ol>
+
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="jquery.h5validate.js"></script>
+		<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+		<script src="test/test.h5validate.js"></script>
+
+		<script>
+		$(document).ready(function () {
+
+			$.h5Validate.addPatterns({
+					phone: /([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)/				
+			});
+		    $('form.h5-defaults').h5Validate();
+			$('#black').h5Validate({
+				errorClass:'black'
+			});
+
+			$('#newTypes').h5Validate();
+
+			$('#radio').h5Validate();
+
+			$('#run-tests').click(function () {
+				runTests();
+			});
+		});
+		</script>
+	</body>
+</html>
