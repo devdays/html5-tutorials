@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Number Cruncher from W3C Spec</title>
+</head>
+<body>
+  <p>The highest prime number discovered so far is: <output id="result"></output></p>
+  <script>
+      var worker = new Worker('4-NumberCruncher.js');
+      worker.onmessage = function (event) {
+          document.getElementById('result').textContent = event.data;
+      };
+  </script>
+
+</body>
+</html>

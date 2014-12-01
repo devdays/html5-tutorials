@@ -1,0 +1,23 @@
+﻿<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>Worker example: One-core computation</title>
+ </head>
+ <body>
+  <p>The biggest number so far is: <output id="result"></output></p>
+  <script>
+      var worker;
+      if (typeof (Worker) !== "undefined") {
+          if (typeof (worker) == "undefined") {
+              worker = new Worker('1-Counter.js');
+              worker.onmessage = function (e) {
+                  document.getElementById('result').textContent = e.data;
+              }
+          }
+      }
+      else {
+          document.getElementById('result').textContent = " not supported.";
+      }
+  </script>
+ </body>
+</html>

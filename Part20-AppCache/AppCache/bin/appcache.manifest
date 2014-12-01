@@ -1,0 +1,13 @@
+﻿CACHE MANIFEST
+#
+#CACHE:
+#script/clock.js
+#css/clock.css
+#images/clock.png
+clock.html
+
+#FALLBACK:
+#* offline.html
+
+#NETWORK:
+#online.html

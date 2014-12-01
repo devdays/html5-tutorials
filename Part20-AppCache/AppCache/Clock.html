@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html manifest="clock.appcache">
+<head>
+  <title>Application Cache Demo</title>
+  <script src="script/clock.js"></script>
+  <link rel="stylesheet" href="css/clock.css">
+</head>
+<body>
+    <div>The broswer is <output id="browserstatus">unknown</output></div>
+
+    <!-- image should be cached -->
+    <img id="clockimg" src="images/clock.png" alt="clock"  />
+    <p>The time is: <output id="clock"></output></p>
+    <p><a href="online-only.html">Link is available online only.</a></p>
+
+    <script>
+        document.getElementById("browserstatus").innerHTML = getOnlineStatus();
+    </script>
+</body>
+</html>

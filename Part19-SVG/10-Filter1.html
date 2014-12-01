@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<svg>
+    <!--the offset image can be blurred (with <feGaussianBlur>): -->
+  <defs>
+     <filter id="f1" x="0" y="0" width="200%" height="200%">
+       <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
+       <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+       <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+     </filter>
+   </defs>
+   <rect width="90" height="90" stroke="green" stroke-width="3"
+    fill="orange" filter="url(#f1)" />
+</svg>
+</body>
+</html>

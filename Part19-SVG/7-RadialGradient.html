@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <svg id="svggradientellipse" height="100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <radialGradient id="gradient" cx="50%" cy="50%" r="50%"
+                            fx="50%" fy="50%">
+                <stop offset="0%" style="stop-color:rgb(200,200,200);
+      stop-opacity:0" />
+                <stop offset="100%" style="stop-color:rgb(0,0,255);
+      stop-opacity:1" />
+            </radialGradient>
+        </defs>
+        <ellipse cx="100" cy="50" rx="100" ry="50"
+                 style="fill:url(#gradient)" />
+    </svg>
+</body>
+</html>

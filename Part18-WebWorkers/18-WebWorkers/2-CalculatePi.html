@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Calculate Pi</title>
+</head>
+<body>
+    <p>The longest pi so far is: <output id="result"></output></p>
+    <p>pi = 3.14159265</p>
+    <button onclick="stopWorker()">Stop Worker</button>
+  <script>
+      var work;
+      if (typeof (Worker) !== "undefined") {
+          if (typeof (work) == "undefined") {
+              work = new Worker('2-CalculatePi.js');
+              work.addEventListener('message', function (e) {
+                  document.getElementById('result').textContent = e.data;
+              }, false);
+              work.addEventListener('error', function (e) {
+                  document.getElementById('result').textContent = e.message;
+              },
+                  false);
+          }
+      }
+      else {
+          document.getElementById('result').textContent = " not supported.";
+      }
+
+      function stopWorker() {
+          work.terminate();
+      }
+  </script>
+</body>
+</html>

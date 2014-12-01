@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html manifest="clock.appcache">
+<head>
+    <title></title>
+    <script src="script/clock.js"></script>
+</head>
+<body>
+    <div>The broswer is <output id="browserStatus">unknown</output></div>
+    <div><a href="clock.html">Clock</a></div>
+
+    <table id="cachingEventTable" border="1">
+        <tr><th>Event Type</th></tr>
+    </table>
+    <script>
+        document.getElementById("browserStatus").innerHTML = getOnlineStatus();
+
+        window.addEventListener("offline", function (e) {
+            document.getElementById("browserStatus").innerHTML = "offline";
+        }, false);
+
+        window.addEventListener("online", function (e) {
+            document.getElementById("browserStatus").innerHTML = "online";
+        }, false);
+
+        if (window.applicationCache) {
+            var appCache = window.applicationCache;
+            appCache.addEventListener('error', handleCacheError, false);
+            appCache.addEventListener('checking', handleCacheEvent, false);
+            appCache.addEventListener('noupdate', handleCacheEvent, false);
+            appCache.addEventListener('downloading', handleCacheEvent, false);
+            appCache.addEventListener('progress', handleCacheEvent, false);
+            appCache.addEventListener('updateready', handleCacheEvent, false);
+            appCache.addEventListener('cached', handleCacheEvent, false);
+        }
+
+        function handleCacheEvent(e) {
+            document.getElementById("cachingEventTable").innerHTML +=
+                "<tr><td>" + e.type + "</td><td>" + getCacheState() + "</td></tr>";
+        }
+        function handleCacheError(e) {
+            document.getElementById("cachingEventTable").innerHTML +=
+                "<tr><td>" + e.type + "</td><td>" + getCacheState() + "</td></tr>";
+        }
+
+        function getCacheState() {
+            var result = "Not supported";
+            if (window.applicationCache) {
+                var cache = window.applicationCache;
+                switch (cache.status) {
+                    case cache.UNCACHED:
+                        result = "Not cached";
+                        break;
+                    case cache.IDLE:
+                        result = "Idle";
+                        break;
+                    case cache.CHECKING:
+                        result = "Checking";
+                        break;
+                    case cache.DOWNLOADING:
+                        result = "Downloading";
+                        break;
+                    case cache.UPDATEREADY:
+                        result = "Update ready";
+                        cache;
+                    case cache.OBSOLETE:
+                        result = "Obsolete";
+                        cache;
+                    default:
+                        result = "Unexpected Status ( " +
+                                       cache.status.toString() + ")";
+                        break;
+                }
+            }
+            return result;
+        }
+
+        function getOnlineStatus() {
+            var browserstatus;
+            if (window.navigator.onLine) {
+                browserstatus = "online";
+            } else {
+                browserstatus = "offline";
+            }
+            return browserstatus;
+        }
+    </script>
+</body>
+</html>

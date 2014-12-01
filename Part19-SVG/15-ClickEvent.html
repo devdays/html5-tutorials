@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Click in SVG</title>
+
+</head>
+<body>
+    <h1>SVG User Interface</h1>
+    <!-- Create the SVG pane. -->
+    <svg height="100" width="100">
+        <!-- Create the circle. -->
+        <circle cx="75" cy="75" r="50" fill="green" id="myCircle" 
+            onclick="circleClick();" />
+        <text>Click on green circle.</text>
+    </svg>
+    <script type="text/javascript">
+        // This function is called when the circle is clicked.
+        function circleClick() {
+            // Display the alert.
+            alert("You clicked the SVG circle.");
+        }
+    </script>
+</body>
+</html>
+

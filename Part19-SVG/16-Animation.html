@@ -1,0 +1,45 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click in SVG</title>
+
+</head>
+<body>
+    <h1>SVG User Interface</h1>
+
+
+<svg width="800px" height="800px" viewBox="0 0 800 800"
+     version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Note that this is required in order to use xlink in the <use> element. -->
+
+  <!-- THIS EXAMPLE NOT SUPPORTED IN INTERNET EXPLORER 9 -->
+  
+  <title>Simplest SVG Animation</title>
+  <desc>SVG declarative animation is used to rotate a square.</desc>
+
+  <g transform="translate(400, 400)"> <!-- Create a Cartesian coordinate system (with the y-axis flipped) for the animated square. That is, place the origin at the center of the 800 x 800 SVG viewport. --> 
+  
+    <!-- A 200 x 200 square with the upper left-hand corner at (-100, -100). This places the center of the square 
+    at the origin (0, 0): -->  
+    <rect x="-100" y="-100" width="200" height="200" rx="5" ry="5" 
+          style=" fill: orange; stroke: black; stroke-width: 3; stroke-dasharray: 10, 5;">
+      <animateTransform 
+        attributeType="xml"
+	    attributeName="transform" type="rotate"
+	    from="0" to="90"
+	    begin="0" dur="5s" 
+	    fill="freeze"
+      />
+    </rect>
+    
+    <line x1="-400" y1="0" x2="400" y2="0" style="stroke: black;" /> <!-- Represents the x-axis. -->
+    
+    <line x1="0" y1="-400" x2="0" y2="400" style="stroke: black;" /> <!-- Represents the y-axis (although up is negative and down is positive). -->  
+        
+  </g>
+</svg> 
+    </body>
+    </html>
+
+
