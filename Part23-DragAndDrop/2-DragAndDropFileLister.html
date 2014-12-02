@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Drop files on me</title>
+    <style type="text/css">
+        #dropOnMe {
+            width: 210px;
+            height: 136px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            // this function runs when the page loads to set up the drop area
+
+            dropOnMe.addEventListener("drop", dropHandler, false);
+            dropOnMe.addEventListener("dragover", function (ev) {
+                ev.preventDefault();
+            }, false);
+
+            function dropHandler(ev) {
+                // Prevent default processing.
+                ev.preventDefault();
+
+                // Get the file(s) that are dropped.
+                var filelist = ev.dataTransfer.files;
+                if (!filelist) return;  // if null, exit now
+
+                // get number of dropped files
+                var filecount = filelist.length;  
+
+                if (filecount > 0) {
+                    // Do something with the files. 
+                    fileCount.innerText = filecount + " files dropped";
+
+                    for (var i = 0; i < filecount; i++) {
+                        myFileList.innerHTML += "<li>" + filelist[i].name + " " +
+                            filelist[i].size + " " +
+                            filelist[i].type +
+                            "</li>";
+                    }
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <h3>Drop Files on Me</h3>
+    <div id="dropOnMe" draggable="false"></div>
+    <div id="fileCount" draggable="false"></div>
+    <div draggable="false">
+        <ol draggable="false" id="myFileList"></ol>
+    </div>
+</body>
+</html>

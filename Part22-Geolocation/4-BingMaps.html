@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bing My Location</title>
+    <style>
+        #divmap {
+            position:relative;
+            width:400px;   
+            height:400px;
+            border:1px solid blue;
+        }
+    </style>
+    <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script>
+        window.addEventListener("load", function () {
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition,
+                        errorFunction);
+                } else {
+                    loc.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+            function showPosition(position) {
+                loc.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+
+                var curPos = new Microsoft.Maps.Location(position.coords.latitude,
+                    position.coords.longitude);
+                var calloutOptions = {
+                    title: "Location Information",
+                    description: "This is your current location."
+                };
+                var callout = new Microsoft.Maps.Infobox(curPos, calloutOptions);
+                var mapOptions = {
+                    //credentials: 'BingMapsAPIKey',
+                    center: curPos,
+                    mapTypeId: Microsoft.Maps.MapTypeId.road,
+                    zoom: 8
+                };
+                var map = new Microsoft.Maps.Map(divMap, mapOptions);
+                map.entities.push(callout);
+
+            }
+            function errorFunction(error) {
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        loc.innerHTML = "User denied the request for Geolocation."
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        loc.innerHTML = "Location information is unavailable."
+                        break;
+                    case error.TIMEOUT:
+                        loc.innerHTML = "The request to get user location timed out."
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        loc.innerHTML = "An unknown error occurred."
+                        break;
+                }
+            }
+
+            getLocation();
+        }, false);
+</script>
+</head>
+<body>
+    <p>Get the location.</p>
+    <div id="loc"></div>
+    <div id="divMap"></div>
+</body>
+</html>

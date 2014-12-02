@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Popeye for President</title>
+    <style>
+        #progressBar {
+            border: 1px solid #aaa;
+            color: #fff;
+            width: 295px;
+            height: 20px;
+        }
+
+        #progress {
+            background-color: maroon;
+            height: 20px;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            // Turn off the default controls
+            cartoon.controls = false;
+
+            playpause.addEventListener("click", function () {
+                if (cartoon.paused || cartoon.ended) {
+                    playpause.title = "Pause";
+                    playpause.innerHTML = "Pause";
+                    cartoon.play();
+                }
+                else {
+                    playpause.title = "Play";
+                    playpause.innerHTML = "Play";
+                    cartoon.pause();
+                }
+            }, false);
+
+            volume.addEventListener("change", function () {
+                cartoon.volume = volume.value;
+            }, false);
+
+            mute.addEventListener("click", function () {
+                cartoon.muted = !cartoon.muted;
+            }, false);
+
+            cartoon.addEventListener("timeupdate", function () {
+                var value = 0;
+                if (cartoon.currentTime > 0) {
+                    value = Math.floor((100 / cartoon.duration) * cartoon.currentTime);
+                }
+                progress.style.width = value + "%";
+
+            }, false);
+
+            cartoon.addEventListener('play', function () {
+                playpause.title = "pause";
+                playpause.innerHTML = "pause";
+            }, false);
+
+            cartoon.addEventListener('pause', function () {
+                playpause.title = "play";
+                playpause.innerHTML = "play";
+            }, false);
+
+        });
+
+    </script>
+</head>
+<body>
+    <video id="cartoon" width="320" height="240" controls>
+        <source src="video/PopeyeForPresident_qtp.mp4" type="video/mp4">
+        <source src="video/PopeyeForPresident_qtp.ogv" type="video/ogg">
+        Your browser does not support HTML5 MPG4 video.
+    </video>
+
+    <div id="controls">
+        <button id="playpause" title="play">Play</button>
+        <input id="volume" min="0" max="1" step="0.1" type="range" />
+        <button id="mute">Mute</button>
+    </div>
+    <div id="progressBar"><span id="progress"></span></div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Test with Buttons</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+            var nav = null;
+            var watchID;
+            startWatching.addEventListener("click", function () {
+                if (nav == null) {
+                    nav = window.navigator;
+                }
+                if (nav != null) {
+                    var geoloc = nav.geolocation;
+                    if (geoloc != null) {
+                        watchID = geoloc.watchPosition(successCallback, errorCallback);
+                    }
+                    else {
+                        console.log("Geolocation not supported");
+                    }
+                }
+                else {
+                    console.log("Navigator not found");
+                }
+            });
+
+            function successCallback(position) {
+                loc.innerHTML = "Latitude: " + position.coords.latitude +
+                " Longitude: " + position.coords.longitude;
+            }
+
+            function errorCallback(error) {
+                var message = "";
+                // Check for known errors
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        message = "This website does not have permission to use " +
+                                  "the Geolocation API";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        message = "The current position could not be determined.";
+                        break;
+                    case error.PERMISSION_DENIED_TIMEOUT:
+                        message = "The current position could not be determined " +
+                                  "within the specified timeout period.";
+                        break;
+                }
+                // If it's an unknown error, build a message that includes 
+                // information that helps identify the situation so that 
+                // the error handler can be updated.
+                if (message == "") {
+                    var strErrorCode = error.code.toString();
+                    message = "The position could not be determined due to " +
+                              "an unknown error (Code: " + strErrorCode + ").";
+                }
+                console.log(message);
+            }
+
+            clearWatching.addEventListener("click", function () {
+                window.navigator.geolocation.clearWatch(watchID);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="loc"></div>
+    <input id="startWatching" type="button" value="Watch Latitude and Longitude" />
+    <input id="clearWatching" type="button" value="Clear watch" />
+</body>
+</html>
+
+

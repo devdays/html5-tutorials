@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Get My Location</title>
+    <script>
+        window.addEventListener("load", function () {
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,
+            errorFunction);
+    } else {
+        loc.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    loc.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+function errorFunction(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            loc.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            loc.innerHTML = "Location information is unavailable."
+            break;
+        case error.TIMEOUT:
+            loc.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            loc.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+
+            getLocation();
+        }, false);
+</script>
+</head>
+<body>
+    <p>Get the location.</p>
+    <div id="loc"></div>
+</body>
+</html>

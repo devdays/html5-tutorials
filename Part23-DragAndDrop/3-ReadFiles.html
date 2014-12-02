@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Drop files on me</title>
+    <style type="text/css">
+        #dropOnMe {
+            width: 210px;
+            height: 136px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            // this function runs when the page loads to set up the drop area
+
+            dropOnMe.addEventListener("drop", dropHandler, false);
+            dropOnMe.addEventListener("dragover", function (ev) {
+                ev.preventDefault();
+            }, false);
+
+            function dropHandler(ev) {
+                // Prevent default processing.
+                ev.preventDefault();
+
+                // Get the file(s) that are dropped.
+                var filelist = ev.dataTransfer.files;
+                if (!filelist) return;  // if null, exit now
+
+                // Loop through the FileList.
+                for (var i = 0, f; f = filelist[i]; i++) {
+                    // Only process text files.
+                    if (!f.type.match('text.*')) {
+                        continue;
+                    }
+
+                    var reader = new FileReader();
+
+                    // Closure to capture the file information.
+                    reader.onload = (function (theFile) {
+                        return function (e) {
+                            myFileList.innerHTML += "<li>" + theFile.name + " " +
+                                countWords(e.target.result)
+                                "</li>";
+                        };
+                    })(f);
+
+                    // Be sure to actually read the file.
+                    reader.readAsText(f);
+                }
+            }
+        });
+
+        // count the number of spaces and use this to calculate the number of words. 
+        function countWords(s) {
+            s = s.replace(/(^\s*)|(\s*$)/gi, "");
+            s = s.replace(/[ ]{2,}/gi, " ");
+            s = s.replace(/\n /, "\n");
+            return s.split(' ').length;
+        }
+
+    </script>
+</head>
+<body>
+    <h3>Drop Files on Me</h3>
+    <div id="dropOnMe" draggable="false"></div>
+    <div id="fileCount" draggable="false"></div>
+    <div draggable="false">
+        <ol draggable="false" id="myFileList"></ol>
+    </div>
+</body>
+</html>

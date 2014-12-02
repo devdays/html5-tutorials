@@ -1,0 +1,37 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Drag Logo</title>
+    <style type="text/css">
+        #dropOnMe {
+            width: 210px;
+            height: 136px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("Text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("Text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+</head>
+<body>
+    <p draggable="false">Drag the image into the rectangle:</p>
+
+    <div id="dropOnMe" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <br>
+    <img id="dragImage" src="images/nextechpress.png" draggable="true" 
+        ondragstart="drag(event)">
+</body>
+</html>

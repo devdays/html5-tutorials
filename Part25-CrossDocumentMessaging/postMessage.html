@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Message</title>
+
+</head>
+<body>
+    <form id="the-form" action="/">
+        <input type="text" id="my-message" value="Your message">
+        <input type="submit" value="postMessage">
+    </form>
+
+    <iframe id="my-iframe" src="postMessageTarget.html"></iframe>
+    <script>
+        window.onload = function () {
+            var iframeWin = document.getElementById("my-iframe").contentWindow,
+                form = document.getElementById("the-form"),
+                myMessage = document.getElementById("my-message");
+
+            myMessage.select();
+
+            form.onsubmit = function () {
+                iframeWin.postMessage(myMessage.value, "/");
+                return false;
+            };
+        };
+    </script>
+</body>
+</html>

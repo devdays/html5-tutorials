@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<!-- from Creating Creating thumbnails with drag and drop and HTML5 canvas
+    http://hacks.mozilla.org/2012/02/creating-thumbnails-with-drag-and-drop-and-html5-canvas/
+    --> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thumbnail generator using HTML5 Canvas and FileReader</title>
+  <meta type="description" content="Batch generate thumbnails by dropping them into the page.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <style>
+      * { 
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 15px;
+  font-family: helvetica, arial, sans-serif;
+  padding: 2em;
+}
+footer, section, output, header, aside, figure {
+  display: block;
+}
+a { 
+  color: #060;
+}
+h1 {
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+.dragdrop #dropzone {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  border: 2px dotted #393;
+  background: #cfc;
+  color: #393;
+  text-align: center;
+  line-height: 200px;
+  float: left;
+  margin-right: 10px;
+}
+.dragdrop output {
+  width: 520px;
+  display: block;
+  float: left
+}
+output img {
+  margin: 5px;
+  display: block;
+  float: left;
+}
+footer { 
+  clear:both;
+}
+section, header, footer {
+  width: 800px;
+}
+input[type=number] { width: 3em; }
+input[type=checkbox] { margin-right: 10px }
+label {
+  padding-right: 10px;
+  font-weight: bold;
+}
+#bg {
+  width: 5em;
+}
+.jpeg {
+  opacity: 0.2;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.crop {
+  opacity: 1;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.cropon .crop {
+  opacity: 0.2;
+}
+.jpegon .jpeg {
+  opacity: 1;
+}
+.options {
+  background: #060;
+  color: #fff;
+  border-radius: 5px;
+  margin: 1em 0;
+  padding: 5px 10px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.8);
+}
+h1 {
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: -1px;
+}
+output img {
+  display:block;
+}
+output img:hover {
+  box-shadow: 0 0 5px 5px #ccc;
+  border: 1px solid #999;
+}
+h2 {
+  font-size: 12px;
+}
+footer {
+  clear: both;
+  text-align: right;
+  padding: 50px 0 20px 0;
+  font-size: 12px;
+}
+footer a {
+  color: #000;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Thumbnail generator</h1>
+    <p>Generate thumbnails in your browser. Simply choose your thumbnail properties and drag and drop images onto the field below. Find out more on the <a href="http://hacks.mozilla.org/2012/02/creating-thumbnails-with-drag-and-drop-and-html5-canvas/">MDN blog</a> and <a href="https://github.com/codepo8/canvasthumber">fork/get the source on GitHub</a>.</p>
+  </header>
+  <section>
+  <form>
+  <div class="options">
+   <label for="width">Width:</label><input id="width" type="number" name="width" value="100">
+  <label for="height">Height:</label><input id="height"  type="number"  name="height" value="100">
+  <input type="checkbox" id="crop"><label for="crop">crop thumbnail</label>
+    <span class="crop"><label for="bg">background:</label><input type="text" value="white" id="bg"></span>
+    <input type="checkbox" id="jpeg">
+    <label for="jpeg">JPG</label>
+    <span class="jpeg"><label for="quality">Quality</label>
+    <input type="number" max="100" min="0" value="50" id="quality"> %</span>
+  </div>
+  <div id="dropzone">This demo needs a canvas and FileReader capable browser
+</div>
+  </form>
+  <output><h2>Thumbnails (click to remove, hover to see filesize)</h2></output>
+  </section>
+  <footer>
+    <p>Written by 
+    <a href="http://christianheilmann.com/">Chris Heilmann</a> 
+    (<a href="http://twitter.com/codepo8">@codepo8</a>)
+  </p>
+</footer>
+<h2>See it in action:</h2>
+
+
+<iframe width="853" height="480" src="http://www.youtube.com/embed/cYN45FixIgI?rel=0" frameborder="0" allowfullscreen></iframe>
+
+
+<script>
+    /*
+  canvasthumber by Christian Heilmann
+  Version: 1.0
+  Homepage: http://thewebrocks/demos/canvasthumber
+  Copyright (c) 2012, Christian Heilmann
+  Code licensed under the BSD License:
+  http://wait-till-i.com/license.txt
+*/
+    (function () {
+        var s = document.querySelector('#dropzone'),
+            o = document.querySelector('output'),
+            cr = document.querySelector('#crop'),
+            j = document.querySelector('#jpeg'),
+            c = document.createElement('canvas'),
+            cx = c.getContext('2d'),
+            thumbwidth = thumbheight = 100,
+            crop = false,
+            background = 'white',
+            jpeg = false,
+            quality = 0.8;
+
+
+        function init() {
+            if (typeof FileReader !== 'undefined') {
+                document.body.classList.add('dragdrop');
+                s.innerHTML = 'Drop images here';
+                cr.addEventListener('click', function (evt) {
+                    document.body.classList.toggle('cropon');
+                }, false);
+                j.addEventListener('click', function (evt) {
+                    document.body.classList.toggle('jpegon');
+                }, false);
+                o.addEventListener('click', function (evt) {
+                    var t = evt.target;
+                    if (t.tagName === 'IMG') {
+                        t.parentNode.removeChild(t);
+                    }
+                }, false);
+                s.addEventListener('dragover', function (evt) {
+                    evt.preventDefault();
+                }, false);
+                s.addEventListener('drop', getfiles, false);
+            }
+        };
+        function getfiles(ev) {
+            var files = ev.dataTransfer.files,
+                url = window.URL || window.webkitURL,
+                objURL = url.createObjectURL || false;
+
+
+            if (files.length > 0) {
+                var i = files.length;
+                while (i--) {
+                    var file = files[i];
+                    if (file.type.indexOf('image') === -1) { continue; }
+                    if (objURL) {
+                        loadImage(url.createObjectURL(file));
+                    } else {
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function (ev) {
+                            loadImage(ev.target.result);
+                        };
+                    }
+                }
+            }
+            ev.preventDefault();
+        }
+        function loadImage(file) {
+            var img = new Image();
+            img.src = file;
+            img.onload = function () {
+                grabformvalues();
+                imagetocanvas(this, thumbwidth, thumbheight, crop, background);
+            };
+        }
+        function grabformvalues() {
+            thumbwidth = document.querySelector('#width').value;
+            thumbheight = document.querySelector('#height').value;
+            crop = document.querySelector('#crop').checked;
+            background = document.querySelector('#bg').value;
+            jpeg = document.querySelector('#jpeg').checked,
+            quality = document.querySelector('#quality ').value / 100;
+        }
+        function imagetocanvas(img, thumbwidth, thumbheight, crop, background) {
+            c.width = thumbwidth;
+            c.height = thumbheight;
+            var dimensions = resize(img.width, img.height, thumbwidth, thumbheight);
+            if (crop) {
+                c.width = dimensions.w;
+                c.height = dimensions.h;
+                dimensions.x = 0;
+                dimensions.y = 0;
+            }
+            if (background !== 'transparent') {
+                cx.fillStyle = background;
+                cx.fillRect(0, 0, thumbwidth, thumbheight);
+            }
+            cx.drawImage(
+              img, dimensions.x, dimensions.y, dimensions.w, dimensions.h
+            );
+            addtothumbslist(jpeg, quality);
+        };
+        function addtothumbslist(jpeg, quality) {
+            var thumb = new Image(),
+                url = jpeg ? c.toDataURL('image/jpeg', quality) : c.toDataURL();
+            thumb.src = url;
+            thumb.title = Math.round(url.length / 1000 * 100) / 100 + ' KB';
+            o.appendChild(thumb);
+        };
+        function resize(imagewidth, imageheight, thumbwidth, thumbheight) {
+            var w = 0, h = 0, x = 0, y = 0,
+                widthratio = imagewidth / thumbwidth,
+                heightratio = imageheight / thumbheight,
+                maxratio = Math.max(widthratio, heightratio);
+            if (maxratio > 1) {
+                w = imagewidth / maxratio;
+                h = imageheight / maxratio;
+            } else {
+                w = imagewidth;
+                h = imageheight;
+            }
+            x = (thumbwidth - w) / 2;
+            y = (thumbheight - h) / 2;
+            return { w: w, h: h, x: x, y: y };
+        };
+        init();
+    })();
+
+</script>
+</body>
+</html>
+
